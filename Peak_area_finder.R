@@ -5,7 +5,9 @@
 ## for xcms see
 ## http://bioconductor.org/packages/devel/bioc/html/xcms.html
 library(xcms)
-setwd("C:/Users/Lab/Desktop/Coding_Bits/EIC_Area")
+
+# Note: use / not \ in your file path. If copied from Windows, you can use the find and replace method to quickly correct this issue.
+setwd("C:/Users/Hegeman Lab/Desktop/Code/EIC_Area")
 
 # This is the fuction that needs to be called to run everything. 
 # All parameters are lists.
@@ -68,8 +70,8 @@ allPeakAreas <- function(files, mz, mz.tol, rt.min, rt.max, compound_names)
 
 # Make sure each filename is unique and that they are all in the same directory! 
 # Here is where you can swap out what files are being checked.
-
-files <- scan("filenames.txt", what = "", sep="\n")
+# filenames.txt should be a list of the names of the mzML or mzXML files you wish to analyze. The should each be on their own line in a .txt file.
+files <- scan("filenames_example.txt", what = "", sep="\n")
 
 #### INPUT OPTION 1 #####
 
@@ -89,7 +91,7 @@ compound_names <- c("A","R","D","Cystine","E","G","H","I/L","K","M","F","P","S",
 
 #### INPUT OPTION 2 #####
 
-# Can also run this command to get data from csv template. CSV needs to have same headers as template.
+# Can also run this command to get data from csv template. CSV columns need to have same headers as template.
 filename <- "Input_Data_chilicAA071415.csv"
 
 input_data <- read.csv(filename, header = TRUE)
@@ -102,7 +104,7 @@ rt.max <- input_data$rt.max
 
 #########################
 
-# Command to run function once all variables are set. 
+# Command to run function once all variables are set and functions have been entered into the environment. 
 data <- allPeakAreas(files, mz, mz.tol, rt.min, rt.max, compound_names)
 
 # If you want to generate a csv
