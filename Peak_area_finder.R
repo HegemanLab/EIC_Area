@@ -1,5 +1,5 @@
 ### MAKE SURE TO MAKE THE WORKING DIRECTORY THE DIRECTORY WHERE ALL THE MZXML 
-### OR MZML FILES ARE STORED. As a best practice, store them in the same file
+### OR MZML FILES ARE STORED. As a simplest practice, store them in the same file
 ### as this code. 
 
 ## for xcms see
