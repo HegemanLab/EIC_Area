@@ -70,7 +70,12 @@ allPeakAreas <- function(files, mz, mz.tol, rt.min, rt.max, compound_names)
 
 # Make sure each filename is unique and that they are all in the same directory! 
 # Here is where you can swap out what files are being checked.
-# filenames.txt should be a list of the names of the mzML or mzXML files you wish to analyze. The should each be on their own line in a .txt file.
+# filenames.txt should be a list of the names of the mzML or mzXML files you wish to analyze.
+#The should each be on their own line in a .txt file.
+# Command line trick to output a .txt with all files of a given type
+# navigate to a folder with all the desired files in it and enter the following command:
+# dir *.mzXML /b > filenames.txt
+# can use this with any file extension, not just .mzXML. 
 files <- scan("filenames_example.txt", what = "", sep="\n")
 
 #### INPUT OPTION 1 #####
