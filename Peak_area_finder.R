@@ -14,21 +14,12 @@ setwd("C:/Users/Hegeman Lab/Desktop/Code/EIC_Area")
 # All lists need to be same length except files.
 allPeakAreas <- function(files, mz, mz.tol, rt.min, rt.max, compound_names)
 {
-  # creates a matrix so it can be used in the next function
-  cbinded <- cbind(mz, rt.min, rt.max, mz.tol)
-  
   # assigns ranges all of the mz value ranges and rt ranges that need to be evaluated. 
-  ranges <- apply(cbinded, 1,  function(row){
-    mzmin <- row[1] - row[4]
-    mzmax <- row[1] + row[4]
-    rtmin <- rt.min * 60.0
-    rtmax <- rt.max * 60.0
-    
-    c(mzmin = mzmin, mzmax = mzmax, rtmin = rtmin, rtmax = rtmax)
-  })
+  mzmin <- mz - mz.tol
+  mzmax <- mz + mz.tol
   
-  # Transposes ranges so each row is a test set (mzmin, mzmax, rtmin, rtmax)
-  ranges <- t(ranges)
+  peakranges <- data.frame(mzmin = mzmin, mzmax = mzmax, rtmin = rt.min*60, rtmax = rt.max*60)
+  pr.matrix <- as.matrix(peakranges)
   
   # Loops through all files to extract peak areas from each file for each mz/rt
   all_files_data <- lapply(files, function(file) {
@@ -39,8 +30,8 @@ allPeakAreas <- function(files, mz, mz.tol, rt.min, rt.max, compound_names)
     # Finds peaks and returns data about each
     peaks <- getPeaks(xraw, ranges)
     
-    # Attaches the compound names onto the peak data
-    peaks <- cbind(compound_names, peaks)
+    # Changed step size
+    peaks <- getPeaks(xraw, pr.matrix, step = .05)
     
     # Trims out unneeded data and adds file names
     peaks <- apply(peaks, 1, function(peak){
@@ -50,6 +41,7 @@ allPeakAreas <- function(files, mz, mz.tol, rt.min, rt.max, compound_names)
       })
     
     # returns each set of peaks to the outter loop
+    print(paste(file, " complete."))
     peaks
   })
   
