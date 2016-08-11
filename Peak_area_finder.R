@@ -27,9 +27,6 @@ allPeakAreas <- function(files, mz, mz.tol, rt.min, rt.max, compound_names)
     # Creates and xcmsRaw object from the file
     xraw <- xcmsRaw(filename = file)
     
-    # Finds peaks and returns data about each
-    peaks <- getPeaks(xraw, ranges)
-    
     # Changed step size
     peaks <- getPeaks(xraw, pr.matrix, step = .05)
     
